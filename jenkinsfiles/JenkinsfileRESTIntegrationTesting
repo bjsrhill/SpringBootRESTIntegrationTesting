@@ -1,0 +1,17 @@
+node {
+   stage('Preparation') { 
+      git 'https://github.com/bjsrhill/SpringBootRESTIntegrationTesting.git'          
+      mvnHome = tool 'M3'
+   }
+   stage('Build') {
+      if (isUnix()) {
+         sh "'${mvnHome}/bin/mvn' clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menus --tags ~@WIP'"
+      } else {
+         bat(/"${mvnHome}\bin\mvn" clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menus --tags ~@WIP'"/)
+      }
+   }
+   stage('Results') {
+      cucumber fileIncludePattern: '**/*.json', sortingMethod: 'ALPHABETICAL'
+      archive 'target/*.jar'
+   }
+}

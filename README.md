@@ -1,0 +1,1 @@
+Example integration testing of the REST endpoints of a web application. Uses Cucumber JVM and Spring Boot RestTemplate.
