@@ -5,9 +5,9 @@ node {
    }
    stage('Test') {
       if (isUnix()) {
-         sh "'${mvnHome}/bin/mvn' clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menusRest --tags ~@WIP'"
+         sh "'${mvnHome}/bin/mvn' clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menusWeb --tags ~@WIP'"
       } else {
-         bat(/"${mvnHome}\bin\mvn" clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menusRest --tags ~@WIP'"/)
+         bat(/"${mvnHome}\bin\mvn" clean verify -PintegrationTesting -Dcucumber.options='--tags @index-menusWeb --tags ~@WIP'"/)
       }
    }
    stage('Results') {

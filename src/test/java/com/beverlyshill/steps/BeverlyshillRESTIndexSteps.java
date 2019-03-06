@@ -1,11 +1,11 @@
 package com.beverlyshill.steps;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import static org.junit.Assert.assertTrue;
 
 /**
  * 
@@ -30,5 +30,4 @@ public class BeverlyshillRESTIndexSteps extends SpringBootBaseIntegrationTest{
 		assertTrue("The index menus are not correct.", indexMenusResponse.get(0).equals(expectedMenus.toString()));
 	}
 
-	
 }
