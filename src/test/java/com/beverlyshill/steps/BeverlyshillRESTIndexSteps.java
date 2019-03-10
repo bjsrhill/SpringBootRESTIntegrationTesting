@@ -14,19 +14,31 @@ import cucumber.api.java.en.Then;
  * Step definition class for Index.feature
  *
  */
-public class BeverlyshillRESTIndexSteps extends SpringBootBaseIntegrationTest{
+public class BeverlyshillRESTIndexSteps {
+	
+private GlobalSteps global;
+	
+	private Index index;
+	
+	public BeverlyshillRESTIndexSteps(GlobalSteps globalSteps) {
+		global = globalSteps;
+		index = new Index(global);
+	}
 	
 	ArrayList<String> indexMenusResponse = new ArrayList<String>();
 	ArrayList<String> expectedMenus = new ArrayList<String>();
 	
 	@Given("^the page displays$")
 	public void the_page_displays() throws Exception {
-	    indexMenusResponse = getMenus();
+	    indexMenusResponse = index.getMenus();
 	}
 
 	@Then("^menu items are found$")
 	public void menu_items_are_found() throws Exception {
-		expectedMenus = getExpectedMenus();
+		System.out.println("The expected menus is: " + expectedMenus.toString());
+		System.out.println("The indexMenusResponse menus is: " + indexMenusResponse.get(0));
+		
+		expectedMenus = index.getExpectedMenus();
 		assertTrue("The index menus are not correct.", indexMenusResponse.get(0).equals(expectedMenus.toString()));
 	}
 

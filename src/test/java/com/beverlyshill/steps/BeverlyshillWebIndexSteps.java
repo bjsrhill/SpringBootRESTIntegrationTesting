@@ -9,9 +9,13 @@ import cucumber.api.java.en.Then;
 
 public class BeverlyshillWebIndexSteps {
 	
+	private GlobalSteps global;
+	
+	private Index index;
 	
 	public BeverlyshillWebIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
+		index = new Index(global);
 	}
 	
 	String indexTitle = "";
@@ -21,13 +25,11 @@ public class BeverlyshillWebIndexSteps {
 
 	private boolean indexMenusBSHWeb = false;
 
-	private GlobalSteps global;
-
 	private boolean indexMenusPEWeb;
     
 	@Given("^the web page displays$")
     public void the_web_page_displays() throws Exception {
-    	indexTitle = global.getIndexPageTitleChrome();
+    	indexTitle = index.getIndexPageTitleChrome();
     }
     
     @Then("^page title can be verified$")
@@ -37,13 +39,13 @@ public class BeverlyshillWebIndexSteps {
     
     @Then("^the Beverly S\\. Hill menu is found$")
     public void the_Beverly_S_Hill_menu_is_found() throws Exception {
-    	indexMenusBSHWeb = global.getIndexMenusBSHChrome();
+    	indexMenusBSHWeb = index.getIndexMenusBSHChrome();
         assertTrue("The Beverly S. Hill menu item was not found.",indexMenusBSHWeb);
     }
     
     @Then("^the Professional Experience menu is found$")
     public void the_Professional_Experience_menu_is_found() throws Exception {
-        indexMenusPEWeb = global.getIndexMenusProExpChrome();
+        indexMenusPEWeb = index.getIndexMenusProExpChrome();
         assertTrue("The Professional Experience menu item was not found.",indexMenusPEWeb);
         
     }
