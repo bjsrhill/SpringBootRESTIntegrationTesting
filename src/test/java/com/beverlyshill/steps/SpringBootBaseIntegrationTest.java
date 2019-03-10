@@ -15,9 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import cucumber.api.java.Before;
-
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 /**
@@ -32,7 +29,7 @@ public abstract class SpringBootBaseIntegrationTest {
 	
 	@Value("${listOfStrings}")
 	private String [] listOfStrings;
-	private WebDriver chromeDriver;
+	private static WebDriver chromeDriver;
 	
 	@Value("${hostName}")
 	private String hostName;
@@ -42,19 +39,17 @@ public abstract class SpringBootBaseIntegrationTest {
 	
     private RestTemplate restTemplate;
     
-    private WebDriverWait wait;
+    private static WebDriverWait wait;
     
-    private static boolean dunit = false;
-    
-    protected SpringBootBaseIntegrationTest() {
+    public SpringBootBaseIntegrationTest() {
         restTemplate = new RestTemplate();
     }
 
-    protected String indexEndpoint() {
+    public String indexEndpoint() {
         return hostName + indexEndpoint;
     }
     
-    protected ArrayList<String> getMenus() {
+    public ArrayList<String> getMenus() {
     	System.out.println("The listOfStrings is: " + listOfStrings);
     	ResponseEntity<String> resp = restTemplate.getForEntity(indexEndpoint(), String.class);
     	ArrayList<String> webMenus = new ArrayList<String>();
@@ -62,41 +57,45 @@ public abstract class SpringBootBaseIntegrationTest {
     	return webMenus;
     }
     	
-	protected ArrayList<String> getExpectedMenus() {
+	public ArrayList<String> getExpectedMenus() {
 		String output = "\"" + StringUtils.arrayToDelimitedString(listOfStrings , "\",\"") + '"';
 		ArrayList<String> expected = new ArrayList<String>();
 		expected.add(output);
 		return expected;
 	}
 	
-	protected void setChromeWebDriverConfig() {
+	public void setChromeWebDriverConfig() {
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 	}
 	
-	protected WebDriver getChromeDriver() {
-		chromeDriver = new ChromeDriver();
-		chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		wait = new WebDriverWait(chromeDriver, 5);
+	public static WebDriver getChromeDriver() {
+		if(chromeDriver == null) {
+			chromeDriver = new ChromeDriver();
+			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			wait = new WebDriverWait(chromeDriver, 5);
+		}
 		return chromeDriver;
 	}
 	
-	protected String getIndexPageTitleChrome() {
+	public String getIndexPageTitleChrome() {
 		chromeDriver.get(hostName);
 		return chromeDriver.getTitle();
 	}
 	
-	protected boolean getIndexMenusBSHChrome() {
+	public boolean getIndexMenusBSHChrome() {
 		return chromeDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[1]/a")).isDisplayed();
 	}
 	
-	protected Object getIndexMenusProExpChrome() {
+	public boolean getIndexMenusProExpChrome() {
 		chromeDriver.get(hostName);
 		return chromeDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[2]/a")).isDisplayed();
 	}
 	
-	protected void closeChromeDriver() {
-		chromeDriver.close();
-		
+	public void closeChromeDriver() {
+		if(!(chromeDriver == null)) {
+			chromeDriver.close();
+			chromeDriver = null;
+		}
 	}
 
 }
