@@ -22,7 +22,7 @@ private GlobalSteps global;
 	
 	public BeverlyshillRESTIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
-		index = new Index(global);
+		index = Index.getIndex(globalSteps);
 	}
 	
 	ArrayList<String> indexMenusResponse = new ArrayList<String>();

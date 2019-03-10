@@ -10,10 +10,15 @@ import org.springframework.util.StringUtils;
 
 public class Index  {
 	
-	GlobalSteps global;
+	static GlobalSteps global;
 	
-	public Index(GlobalSteps globalSteps) {
+	private Index(GlobalSteps globalSteps) {
+		
+	}
+	
+	public static Index getIndex(GlobalSteps globalSteps) {
 		global = globalSteps;
+		return new Index(globalSteps);
 	}
 	
 	public String getIndexEndpoint() {

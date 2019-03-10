@@ -15,7 +15,7 @@ public class BeverlyshillWebIndexSteps {
 	
 	public BeverlyshillWebIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
-		index = new Index(global);
+		index = Index.getIndex(globalSteps);
 	}
 	
 	String indexTitle = "";
