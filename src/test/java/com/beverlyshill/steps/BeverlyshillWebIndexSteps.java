@@ -1,11 +1,13 @@
 package com.beverlyshill.steps;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.springframework.beans.factory.annotation.Value;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import junit.framework.Assert;
 
 public class BeverlyshillWebIndexSteps {
 	
@@ -39,15 +41,12 @@ public class BeverlyshillWebIndexSteps {
     
     @Then("^the Beverly S\\. Hill menu is found$")
     public void the_Beverly_S_Hill_menu_is_found() throws Exception {
-    	indexMenusBSHWeb = index.getIndexMenusBSHChrome();
-        assertTrue("The Beverly S. Hill menu item was not found.",indexMenusBSHWeb);
+    	index.verifyIsDisplayed(index.BSHMenu());
     }
     
     @Then("^the Professional Experience menu is found$")
     public void the_Professional_Experience_menu_is_found() throws Exception {
-        indexMenusPEWeb = index.getIndexMenusProExpChrome();
-        assertTrue("The Professional Experience menu item was not found.",indexMenusPEWeb);
-        
+        index.verifyIsDisplayed(index.professionalExperienceMenu());
     }
 
 
