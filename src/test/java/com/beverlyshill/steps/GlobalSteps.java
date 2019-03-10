@@ -8,12 +8,12 @@ public class GlobalSteps extends SpringBootBaseIntegrationTest {
 	@Before
     public void setup() {
     	setChromeWebDriverConfig();
-    	getChromeDriver();
+    	getWebDriverChrome();
     }
     
     @After
     public void tearDown() {
-    	closeChromeDriver();
+    	chromeDriverClose();
     }
 
 }

@@ -1,19 +1,19 @@
 package com.beverlyshill.steps;
 
+import static com.beverlyshill.utils.WebDriverFactory.getChromeDriver;
+import static com.beverlyshill.utils.WebDriverFactory.closeChromeDriver;
+
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestTemplate;;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -29,8 +29,7 @@ public abstract class SpringBootBaseIntegrationTest {
 	
 	@Value("${listOfStrings}")
 	private String [] listOfStrings;
-	private static WebDriver chromeDriver;
-	
+
 	@Value("${hostName}")
 	private String hostName;
 	
@@ -39,8 +38,8 @@ public abstract class SpringBootBaseIntegrationTest {
 	
     private RestTemplate restTemplate;
     
-    private static WebDriverWait wait;
-    
+    private WebDriver chromeDriver = getChromeDriver();
+        
     public SpringBootBaseIntegrationTest() {
         restTemplate = new RestTemplate();
     }
@@ -68,34 +67,27 @@ public abstract class SpringBootBaseIntegrationTest {
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 	}
 	
-	public static WebDriver getChromeDriver() {
-		if(chromeDriver == null) {
-			chromeDriver = new ChromeDriver();
-			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			wait = new WebDriverWait(chromeDriver, 5);
-		}
-		return chromeDriver;
-	}
-	
 	public String getIndexPageTitleChrome() {
 		chromeDriver.get(hostName);
-		return chromeDriver.getTitle();
+		return getChromeDriver().getTitle();
 	}
 	
 	public boolean getIndexMenusBSHChrome() {
-		return chromeDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[1]/a")).isDisplayed();
+		return getChromeDriver().findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[1]/a")).isDisplayed();
 	}
 	
 	public boolean getIndexMenusProExpChrome() {
 		chromeDriver.get(hostName);
-		return chromeDriver.findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[2]/a")).isDisplayed();
+		return getChromeDriver().findElement(By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[2]/a")).isDisplayed();
 	}
 	
-	public void closeChromeDriver() {
-		if(!(chromeDriver == null)) {
-			chromeDriver.close();
-			chromeDriver = null;
-		}
+	public WebDriver getWebDriverChrome() {
+		return chromeDriver;
 	}
+	
+	public void chromeDriverClose() {
+		closeChromeDriver();
+	}
+	
 
 }
