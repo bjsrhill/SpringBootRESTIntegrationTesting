@@ -47,11 +47,6 @@ public class Index  {
 		return By.xpath("//*[@id=\"navbar-collapse\"]/div[2]/h3/li[2]/a");	
 	}
 	
-	public Index verifyIsDisplayed(By element) {
-		assertTrue(getChromeDriver().findElement(element).isDisplayed());
-		return this;
-	}
-	
 	public ArrayList<String> getExpectedMenus() {
 		String output = "\"" + StringUtils.arrayToDelimitedString(global.getListOfStrings() , "\",\"") + '"';
 		ArrayList<String> expected = new ArrayList<String>();

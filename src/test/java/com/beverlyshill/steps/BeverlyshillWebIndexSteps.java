@@ -41,12 +41,12 @@ public class BeverlyshillWebIndexSteps {
     
     @Then("^the Beverly S\\. Hill menu is found$")
     public void the_Beverly_S_Hill_menu_is_found() throws Exception {
-    	index.verifyIsDisplayed(index.BSHMenu());
+    	global.verifyIsDisplayed(index.BSHMenu());
     }
     
     @Then("^the Professional Experience menu is found$")
     public void the_Professional_Experience_menu_is_found() throws Exception {
-        index.verifyIsDisplayed(index.professionalExperienceMenu());
+        global.verifyIsDisplayed(index.professionalExperienceMenu());
     }
 
 
