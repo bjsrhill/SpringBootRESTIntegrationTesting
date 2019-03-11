@@ -2,10 +2,8 @@ package com.beverlyshill.steps;
 
 import static com.beverlyshill.utils.WebDriverFactory.closeChromeDriver;
 import static com.beverlyshill.utils.WebDriverFactory.getChromeDriver;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -67,11 +65,6 @@ public abstract class SpringBootBaseIntegrationTest {
 	
 	public String[] getListOfStrings() {
 		return listOfStrings;
-	}
-	
-	public SpringBootBaseIntegrationTest verifyIsDisplayed(By element) {
-		assertTrue(getChromeDriver().findElement(element).isDisplayed());
-		return this;
 	}
 
 }

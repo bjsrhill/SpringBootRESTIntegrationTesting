@@ -12,7 +12,7 @@ public class StepsController {
 	
 static GlobalSteps global;
 	
-	private StepsController(GlobalSteps globalSteps) {
+	public StepsController(GlobalSteps globalSteps) {
 		
 	}
 	

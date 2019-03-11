@@ -1,7 +1,5 @@
 package com.beverlyshill.utils;
 
-import static com.beverlyshill.utils.WebDriverFactory.getChromeDriver;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
