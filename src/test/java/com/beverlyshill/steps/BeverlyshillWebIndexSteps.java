@@ -13,11 +13,11 @@ public class BeverlyshillWebIndexSteps {
 	
 	private GlobalSteps global;
 	
-	private Index index;
+	private StepsController controller;
 	
 	public BeverlyshillWebIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
-		index = Index.getIndex(globalSteps);
+		controller = StepsController.getStepsController(globalSteps);
 	}
 	
 	String indexTitle = "";
@@ -31,7 +31,7 @@ public class BeverlyshillWebIndexSteps {
     
 	@Given("^the web page displays$")
     public void the_web_page_displays() throws Exception {
-    	indexTitle = index.getIndexPageTitleChrome();
+    	indexTitle = controller.getIndexPageTitleChrome();
     }
     
     @Then("^page title can be verified$")
@@ -41,12 +41,12 @@ public class BeverlyshillWebIndexSteps {
     
     @Then("^the Beverly S\\. Hill menu is found$")
     public void the_Beverly_S_Hill_menu_is_found() throws Exception {
-    	global.verifyIsDisplayed(index.BSHMenu());
+    	global.verifyIsDisplayed(controller.BSHMenu());
     }
     
     @Then("^the Professional Experience menu is found$")
     public void the_Professional_Experience_menu_is_found() throws Exception {
-        global.verifyIsDisplayed(index.professionalExperienceMenu());
+        global.verifyIsDisplayed(controller.professionalExperienceMenu());
     }
 
 

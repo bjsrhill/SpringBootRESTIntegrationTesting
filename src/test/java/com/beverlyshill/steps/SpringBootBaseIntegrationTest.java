@@ -4,8 +4,6 @@ import static com.beverlyshill.utils.WebDriverFactory.closeChromeDriver;
 import static com.beverlyshill.utils.WebDriverFactory.getChromeDriver;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

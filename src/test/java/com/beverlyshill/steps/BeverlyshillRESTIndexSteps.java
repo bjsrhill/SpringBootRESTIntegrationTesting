@@ -18,11 +18,14 @@ public class BeverlyshillRESTIndexSteps {
 	
 private GlobalSteps global;
 	
+	private StepsController stepsController;
+	
 	private Index index;
 	
 	public BeverlyshillRESTIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
-		index = Index.getIndex(globalSteps);
+		stepsController = StepsController.getStepsController(globalSteps);
+		
 	}
 	
 	ArrayList<String> indexMenusResponse = new ArrayList<String>();
@@ -30,7 +33,7 @@ private GlobalSteps global;
 	
 	@Given("^the page displays$")
 	public void the_page_displays() throws Exception {
-	    indexMenusResponse = index.getMenus();
+	    indexMenusResponse = stepsController.getMenus();
 	}
 
 	@Then("^menu items are found$")
@@ -38,7 +41,7 @@ private GlobalSteps global;
 		System.out.println("The expected menus is: " + expectedMenus.toString());
 		System.out.println("The indexMenusResponse menus is: " + indexMenusResponse.get(0));
 		
-		expectedMenus = index.getExpectedMenus();
+		expectedMenus = stepsController.getExpectedMenus();
 		assertTrue("The index menus are not correct.", indexMenusResponse.get(0).equals(expectedMenus.toString()));
 	}
 
