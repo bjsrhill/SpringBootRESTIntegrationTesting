@@ -1,8 +1,11 @@
 package com.beverlyshill.steps;
 
+import static com.beverlyshill.utils.StepsController.getStepsController;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+
+import com.beverlyshill.utils.StepsController;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -16,16 +19,18 @@ import cucumber.api.java.en.Then;
  */
 public class BeverlyshillRESTIndexSteps {
 	
-private GlobalSteps global;
+	private GlobalSteps global;
 	
 	private StepsController stepsController;
 	
-	private Index index;
-	
+	/**
+	 * Class constructor
+	 * 
+	 * @param globalSteps GlobalSteps class
+	 */
 	public BeverlyshillRESTIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
-		stepsController = StepsController.getStepsController(globalSteps);
-		
+		stepsController = getStepsController(global);
 	}
 	
 	ArrayList<String> indexMenusResponse = new ArrayList<String>();
@@ -38,9 +43,6 @@ private GlobalSteps global;
 
 	@Then("^menu items are found$")
 	public void menu_items_are_found() throws Exception {
-		System.out.println("The expected menus is: " + expectedMenus.toString());
-		System.out.println("The indexMenusResponse menus is: " + indexMenusResponse.get(0));
-		
 		expectedMenus = stepsController.getExpectedMenus();
 		assertTrue("The index menus are not correct.", indexMenusResponse.get(0).equals(expectedMenus.toString()));
 	}

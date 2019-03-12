@@ -1,22 +1,37 @@
 package com.beverlyshill.steps;
 
+import static com.beverlyshill.pages.Index.getIndex;
 import static org.junit.Assert.assertTrue;
 
-import static com.beverlyshill.steps.Index.getIndex;
-
 import org.springframework.beans.factory.annotation.Value;
+
+import com.beverlyshill.pages.Index;
+import com.beverlyshill.utils.StepsController;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
+/**
+ * 
+ * Step definition class for Selenium tests
+ * 
+ * @author beverlyshill
+ *
+ */
 public class BeverlyshillWebIndexSteps {
 	
 	private GlobalSteps global;
 	
-	private Index index = getIndex();
+	private Index index;
 	
+	/**
+	 * Class constructor
+	 * 
+	 * @param globalSteps a class with global test methods
+	 */
 	public BeverlyshillWebIndexSteps(GlobalSteps globalSteps) {
 		global = globalSteps;
+		index = getIndex(global);
 	}
 	
 	String indexTitle = "";
