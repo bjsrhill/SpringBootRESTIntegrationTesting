@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebDriverFactory {
@@ -18,7 +19,9 @@ public class WebDriverFactory {
 	public static WebDriver getChromeDriver() {
 		if(chromeDriver == null) {
 			System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
-			chromeDriver = new ChromeDriver();
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.addArguments("--headless");
+			chromeDriver = new ChromeDriver(chromeOptions);
 			chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			wait = new WebDriverWait(chromeDriver, 5);
 		}
